@@ -74,7 +74,7 @@
             <!-- SGBD H2 pour le développement -->
             <groupId>com.h2database</groupId>
             <artifactId>h2</artifactId>
-            <version>2.2.220</version>
+        
         </dependency>
         <dependency>
             <!-- SGBD Postgres pour le déploiement -->
@@ -123,7 +123,7 @@
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
-            <version>${lombok.version}</version>
+            
         </dependency>
         <dependency>
             <groupId>org.modelmapper</groupId>

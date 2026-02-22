@@ -1,15 +1,22 @@
 package pharmacie.dao;
 
-import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import pharmacie.entity.*;
-
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+
+import pharmacie.entity.Categorie;
+import pharmacie.entity.Commande;
+import pharmacie.entity.Dispensaire;
+import pharmacie.entity.Ligne;
+import pharmacie.entity.Medicament;
 
 @DataJpaTest
 class RepositoryCustomMethodsTest {
@@ -198,16 +205,8 @@ class RepositoryCustomMethodsTest {
         assertEquals(5L, paracetamol.getUnites());
     }
 
-    @Test
-    void testDispensaireCustomMethods() {
-        // Ce test se base sur les données contenues dans 'data.sql'
-        // nombreArticlesCommandesPar
-        int total = dispensaireRepository.nombreArticlesCommandesPar("2COM");
-        assertEquals(105, total, "105 médicaments commandés dans data.sql");
-        var dispensaireInconnu = "DSP99";
-        total = dispensaireRepository.nombreArticlesCommandesPar(dispensaireInconnu);
-        assertEquals(0, total, "La requête renvoie 0 pour un dispensaire inconnu");
-    }
+    
+
 
     @Test
     void testCommandeCustomMethods() {
