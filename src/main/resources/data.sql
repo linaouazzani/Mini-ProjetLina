@@ -181,3 +181,36 @@ INSERT INTO LIGNE (COMMANDE_NUMERO, MEDICAMENT_REFERENCE, QUANTITE) VALUES
 (6, 6, 110), (6, 16, 65), (6, 26, 85), (6, 36, 60), (6, 91, 70),
 (7, 7, 80), (7, 17, 50), (7, 27, 95), (7, 37, 55), (7, 100, 45),
 (8, 8, 100), (8, 18, 75), (8, 28, 80), (8, 38, 70), (8, 48, 60);
+-- Création de 4 fournisseurs
+INSERT INTO fournisseur (nom, email) VALUES ('PharmaCorp', 'lina+pharmacorp@gmail.com');
+INSERT INTO fournisseur (nom, email) VALUES ('MediSupply', 'lina+medisupply@gmail.com');
+INSERT INTO fournisseur (nom, email) VALUES ('BioSante', 'lina+biosante@gmail.com');
+INSERT INTO fournisseur (nom, email) VALUES ('CureAll', 'lina+cureall@gmail.com');
+
+-- Liaison (chaque catégorie de 1 à 10 est liée à 2 fournisseurs)
+-- Catégorie 1 liée aux fournisseurs 1 et 2
+INSERT INTO fournisseur_categorie (fournisseur_id, categorie_id) VALUES (1, 1);
+INSERT INTO fournisseur_categorie (fournisseur_id, categorie_id) VALUES (2, 1);
+-- Catégorie 2 liée aux fournisseurs 3 et 4
+INSERT INTO fournisseur_categorie (fournisseur_id, categorie_id) VALUES (3, 2);
+INSERT INTO fournisseur_categorie (fournisseur_id, categorie_id) VALUES (4, 2);
+-- Catégorie 3 liée aux fournisseurs 1 et 3
+INSERT INTO fournisseur_categorie (fournisseur_id, categorie_id) VALUES (1, 3);
+INSERT INTO fournisseur_categorie (fournisseur_id, categorie_id) VALUES (3, 3);
+-- Continuer ainsi de suite jusqu'à la catégorie 10 pour bien respecter la consigne !
+INSERT INTO fournisseur_categorie (fournisseur_id, categorie_id) VALUES (2, 4);
+INSERT INTO fournisseur_categorie (fournisseur_id, categorie_id) VALUES (4, 4);
+INSERT INTO fournisseur_categorie (fournisseur_id, categorie_id) VALUES (1, 5);
+INSERT INTO fournisseur_categorie (fournisseur_id, categorie_id) VALUES (4, 5);
+INSERT INTO fournisseur_categorie (fournisseur_id, categorie_id) VALUES (2, 6);
+INSERT INTO fournisseur_categorie (fournisseur_id, categorie_id) VALUES (3, 6);
+INSERT INTO fournisseur_categorie (fournisseur_id, categorie_id) VALUES (1, 7);
+INSERT INTO fournisseur_categorie (fournisseur_id, categorie_id) VALUES (2, 7);
+INSERT INTO fournisseur_categorie (fournisseur_id, categorie_id) VALUES (3, 8);
+INSERT INTO fournisseur_categorie (fournisseur_id, categorie_id) VALUES (4, 8);
+INSERT INTO fournisseur_categorie (fournisseur_id, categorie_id) VALUES (1, 9);
+INSERT INTO fournisseur_categorie (fournisseur_id, categorie_id) VALUES (3, 9);
+INSERT INTO fournisseur_categorie (fournisseur_id, categorie_id) VALUES (2, 10);
+INSERT INTO fournisseur_categorie (fournisseur_id, categorie_id) VALUES (4, 10);
+INSERT INTO fournisseur (id, nom, email) VALUES (1, 'Fournisseur A', 'expert.lina@exemple.com');
+INSERT INTO fournisseur (id, nom, email) VALUES (2, 'Fournisseur B', 'contact@labo.com');

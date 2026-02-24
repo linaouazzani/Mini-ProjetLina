@@ -37,3 +37,4 @@ INSERT INTO Ligne(commande_numero, medicament_reference, quantite) VALUES ( 9999
 INSERT INTO Commande(numero, dispensaire_code, saisiele, envoyeele, port, destinataire, adresse, ville, region, code_postal, pays, remise) VALUES
     ( 99998, '2COM', '1994-11-29', NULL, 831.00, 'Bon app''', '12, rue des Bouchers', 'Marseille', NULL, '13008', 'France', 0.00);
 INSERT INTO Ligne(commande_numero, medicament_reference, quantite) VALUES ( 99998, 98, 16);
+
