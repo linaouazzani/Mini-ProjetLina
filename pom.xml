@@ -120,17 +120,16 @@
         </dependency>
         <!-- Lombok pour générer automatiquement les getter / setter...  -->
         <!-- cf. https://examples.javacodegeeks.com/spring-boot-with-lombok/ -->
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-            
-        </dependency>
-        <!-- ajout de Envoi d'emails via l'API SendGrid (Alternative à SMTP pour Render) -->
-        <dependency>
-            <groupId>com.sendgrid</groupId>
-            <artifactId>sendgrid-java</artifactId>
-            
-        </dependency>
+     <dependency>
+    <groupId>org.projectlombok</groupId>
+    <artifactId>lombok</artifactId>
+    <scope>provided</scope>
+</dependency>
+
+<dependency>
+    <groupId>com.sendgrid</groupId>
+    <artifactId>sendgrid-java</artifactId>
+</dependency>
         <dependency>
             <groupId>org.modelmapper</groupId>
             <artifactId>modelmapper</artifactId>
