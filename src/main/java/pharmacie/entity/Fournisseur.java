@@ -34,6 +34,8 @@ public class Fournisseur {
 
     // Relation ManyToMany : Un fournisseur fournit plusieurs catégories, 
     // et une catégorie a plusieurs fournisseurs.
+
+    //test pour voir si le clone marche 
     @ManyToMany
     @JoinTable(
         name = "fournisseur_categorie",

@@ -26,33 +26,31 @@ import lombok.ToString;
 @Entity
 @Getter @Setter @NoArgsConstructor @RequiredArgsConstructor @ToString
 public class Categorie {
-	@Id
-	@ManyToMany(mappedBy = "categories") 
+
+    @ManyToMany(mappedBy = "categories") 
     private List<Fournisseur> fournisseurs = new LinkedList<>();
-	
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Setter(AccessLevel.NONE) // la clé est auto-générée par la BD, On ne veut pas de "setter"
-	private Integer code;
+    
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Setter(AccessLevel.NONE) 
+    private Integer code;
 
-	@NonNull
-	@Size(min = 1, max = 255)
-	@Column(unique=true, length = 255)
-	@NotBlank // pour éviter les libellés vides
-	private String libelle;
+    @NonNull
+    @Size(min = 1, max = 255)
+    @Column(unique=true, length = 255)
+    @NotBlank 
+    private String libelle;
 
-	@Size(max = 255)
-	@Column(length = 255)
-	private String description;
+    @Size(max = 255)
+    @Column(length = 255)
+    private String description;
 
-	@ToString.Exclude
-	// CascadeType.ALL signifie que toutes les opérations CRUD sur la catégorie sont également appliquées à ses médicaments
-	@OneToMany(cascade = {CascadeType.ALL}, mappedBy = "categorie")
-	// pour éviter la boucle infinie si on convertit la catégorie en JSON
-	@JsonIgnoreProperties({"categorie", "lignes"})
-	private List<Medicament> medicaments = new LinkedList<>();
+    @ToString.Exclude
+    @OneToMany(cascade = {CascadeType.ALL}, mappedBy = "categorie")
+    @JsonIgnoreProperties({"categorie", "lignes"})
+    private List<Medicament> medicaments = new LinkedList<>();
 
-    public Iterable<Fournisseur> getFournisseurs() {
-        throw new UnsupportedOperationException("Not supported yet.");
+    public List<Fournisseur> getFournisseurs() {
+        return fournisseurs;
     }
-
 }

@@ -212,5 +212,5 @@ INSERT INTO fournisseur_categorie (fournisseur_id, categorie_id) VALUES (1, 9);
 INSERT INTO fournisseur_categorie (fournisseur_id, categorie_id) VALUES (3, 9);
 INSERT INTO fournisseur_categorie (fournisseur_id, categorie_id) VALUES (2, 10);
 INSERT INTO fournisseur_categorie (fournisseur_id, categorie_id) VALUES (4, 10);
-INSERT INTO fournisseur (id, nom, email) VALUES (1, 'Fournisseur A', 'expert.lina@exemple.com');
-INSERT INTO fournisseur (id, nom, email) VALUES (2, 'Fournisseur B', 'contact@labo.com');
+INSERT INTO fournisseur (id, nom, email) VALUES (10, 'Fournisseur A', 'expert.lina@exemple.com');
+INSERT INTO fournisseur (id, nom, email) VALUES (20, 'Fournisseur B', 'contact@labo.com');
