@@ -18,7 +18,7 @@ ALTER TABLE Categorie ALTER COLUMN code RESTART WITH 11;
 
 -- Catégorie 1: Antalgiques et Antipyrétiques
 INSERT INTO MEDICAMENT (NOM, CATEGORIE_CODE, QUANTITE_PAR_UNITE, PRIX_UNITAIRE, UNITES_EN_STOCK, UNITES_COMMANDEES, NIVEAU_DE_REAPPRO, INDISPONIBLE, imageURL) VALUES
-('Paracétamol 500mg', 1, 'Boîte de 16 comprimés', 2.50, 500, 0, 50, false, 'https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=400'),
+('Paracétamol 500mg', 1, 'Boîte de 16 comprimés', 2.50, 10, 0, 50, false, 'https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=400'),
 ('Paracétamol 1000mg', 1, 'Boîte de 8 comprimés', 3.20, 350, 0, 40, false, 'https://images.unsplash.com/photo-1471864190281-a93a3070b6de?w=400'),
 ('Ibuprofène 200mg', 1, 'Boîte de 20 comprimés', 3.80, 400, 0, 45, false, 'https://images.unsplash.com/photo-1550572017-edd951aa8f72?w=400'),
 ('Ibuprofène 400mg', 1, 'Boîte de 12 comprimés', 4.50, 320, 0, 35, false, 'https://images.unsplash.com/photo-1587854692152-cbe660dbde88?w=400'),
@@ -171,7 +171,9 @@ INSERT INTO COMMANDE (NUMERO, SAISIELE, ENVOYEELE, DISPENSAIRE_CODE, PORT, REMIS
 (8, '2024-04-05', '2024-04-08', 'DSP08', 30.00, 7.00, 'Dispensaire Tambacounda', '23 Avenue Demba Diop', '23000', 'Tambacounda', 'Tambacounda', 'Sénégal');
 ALTER TABLE Commande ALTER COLUMN numero RESTART WITH 9;
 
--- Insertion des lignes de commande
+-- ==========================================================
+-- 1. INSERTION DES LIGNES DE COMMANDE
+-- ==========================================================
 INSERT INTO LIGNE (COMMANDE_NUMERO, MEDICAMENT_REFERENCE, QUANTITE) VALUES
 (1, 1, 100), (1, 11, 50), (1, 21, 80), (1, 31, 60), (1, 41, 40),
 (2, 2, 75), (2, 12, 45), (2, 22, 90), (2, 32, 55), (2, 51, 30),
@@ -181,36 +183,56 @@ INSERT INTO LIGNE (COMMANDE_NUMERO, MEDICAMENT_REFERENCE, QUANTITE) VALUES
 (6, 6, 110), (6, 16, 65), (6, 26, 85), (6, 36, 60), (6, 91, 70),
 (7, 7, 80), (7, 17, 50), (7, 27, 95), (7, 37, 55), (7, 100, 45),
 (8, 8, 100), (8, 18, 75), (8, 28, 80), (8, 38, 70), (8, 48, 60);
--- Création de 4 fournisseurs
-INSERT INTO fournisseur (nom, email) VALUES ('PharmaCorp', 'lina+pharmacorp@gmail.com');
-INSERT INTO fournisseur (nom, email) VALUES ('MediSupply', 'lina+medisupply@gmail.com');
-INSERT INTO fournisseur (nom, email) VALUES ('BioSante', 'lina+biosante@gmail.com');
-INSERT INTO fournisseur (nom, email) VALUES ('CureAll', 'lina+cureall@gmail.com');
 
--- Liaison (chaque catégorie de 1 à 10 est liée à 2 fournisseurs)
+-- ==========================================================
+-- 2. CRÉATION DES FOURNISSEURS 
+-- On utilise ton adresse mail partout pour que TU reçoives les tests
+-- ==========================================================
+-- Note : L'ID sera auto-généré (1, 2, 3, 4)
+INSERT INTO fournisseur (nom, email) VALUES ('PharmaCorp', 'lina.ouazzani_chahdi@etud.univ-jfc.fr');
+INSERT INTO fournisseur (nom, email) VALUES ('MediSupply', 'lina.ouazzani_chahdi@etud.univ-jfc.fr');
+INSERT INTO fournisseur (nom, email) VALUES ('BioSante', 'lina.ouazzani_chahdi@etud.univ-jfc.fr');
+INSERT INTO fournisseur (nom, email) VALUES ('CureAll', 'lina.ouazzani_chahdi@etud.univ-jfc.fr');
+
+-- ==========================================================
+-- 3. LIAISON FOURNISSEURS / CATÉGORIES (1 à 10)
+-- ==========================================================
 -- Catégorie 1 liée aux fournisseurs 1 et 2
 INSERT INTO fournisseur_categorie (fournisseur_id, categorie_id) VALUES (1, 1);
 INSERT INTO fournisseur_categorie (fournisseur_id, categorie_id) VALUES (2, 1);
+
 -- Catégorie 2 liée aux fournisseurs 3 et 4
 INSERT INTO fournisseur_categorie (fournisseur_id, categorie_id) VALUES (3, 2);
 INSERT INTO fournisseur_categorie (fournisseur_id, categorie_id) VALUES (4, 2);
+
 -- Catégorie 3 liée aux fournisseurs 1 et 3
 INSERT INTO fournisseur_categorie (fournisseur_id, categorie_id) VALUES (1, 3);
 INSERT INTO fournisseur_categorie (fournisseur_id, categorie_id) VALUES (3, 3);
--- Continuer ainsi de suite jusqu'à la catégorie 10 pour bien respecter la consigne !
+
+-- Catégorie 4 liée aux fournisseurs 2 et 4
 INSERT INTO fournisseur_categorie (fournisseur_id, categorie_id) VALUES (2, 4);
 INSERT INTO fournisseur_categorie (fournisseur_id, categorie_id) VALUES (4, 4);
+
+-- Catégorie 5 liée aux fournisseurs 1 et 4
 INSERT INTO fournisseur_categorie (fournisseur_id, categorie_id) VALUES (1, 5);
 INSERT INTO fournisseur_categorie (fournisseur_id, categorie_id) VALUES (4, 5);
+
+-- Catégorie 6 liée aux fournisseurs 2 et 3
 INSERT INTO fournisseur_categorie (fournisseur_id, categorie_id) VALUES (2, 6);
 INSERT INTO fournisseur_categorie (fournisseur_id, categorie_id) VALUES (3, 6);
+
+-- Catégorie 7 liée aux fournisseurs 1 et 2
 INSERT INTO fournisseur_categorie (fournisseur_id, categorie_id) VALUES (1, 7);
 INSERT INTO fournisseur_categorie (fournisseur_id, categorie_id) VALUES (2, 7);
+
+-- Catégorie 8 liée aux fournisseurs 3 et 4
 INSERT INTO fournisseur_categorie (fournisseur_id, categorie_id) VALUES (3, 8);
 INSERT INTO fournisseur_categorie (fournisseur_id, categorie_id) VALUES (4, 8);
+
+-- Catégorie 9 liée aux fournisseurs 1 et 3
 INSERT INTO fournisseur_categorie (fournisseur_id, categorie_id) VALUES (1, 9);
 INSERT INTO fournisseur_categorie (fournisseur_id, categorie_id) VALUES (3, 9);
+
+-- Catégorie 10 liée aux fournisseurs 2 et 4
 INSERT INTO fournisseur_categorie (fournisseur_id, categorie_id) VALUES (2, 10);
 INSERT INTO fournisseur_categorie (fournisseur_id, categorie_id) VALUES (4, 10);
-INSERT INTO fournisseur (id, nom, email) VALUES (10, 'Fournisseur A', 'expert.lina@exemple.com');
-INSERT INTO fournisseur (id, nom, email) VALUES (20, 'Fournisseur B', 'contact@labo.com');

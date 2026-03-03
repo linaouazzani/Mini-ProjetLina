@@ -1,79 +1,85 @@
 package pharmacie.service;
 
-import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.client.RestTemplate;
 
-import com.sendgrid.Method;
-import com.sendgrid.Request;
-import com.sendgrid.SendGrid;
-import com.sendgrid.helpers.mail.Mail;
-import com.sendgrid.helpers.mail.objects.Content;
-import com.sendgrid.helpers.mail.objects.Email;
-
-import lombok.extern.slf4j.Slf4j;
 import pharmacie.dao.MedicamentRepository;
+import pharmacie.entity.Fournisseur;
 import pharmacie.entity.Medicament;
 
 @Service
-@Slf4j
 public class ApprovisionnementService {
+
+    private static final org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(ApprovisionnementService.class);
 
     @Autowired
     private MedicamentRepository medicamentRepository;
 
-    @Value("${sendgrid.api.key:CLE_DE_TEST}")
-    private String sendGridApiKey;
+    @Value("${postmark.api.token}")
+    private String postmarkApiToken;
 
-    @Value("${sendgrid.from.email:pharmacie@hopital.com}")
-    private String fromEmail;
+    @Value("${postmark.sender.email}")
+    private String senderEmail;
 
     @Transactional
     public void declencherReapprovisionnement() {
-        log.info("Analyse des stocks...");
+        log.info("--- Début de la vérification des stocks ---");
+        List<Medicament> rupture = medicamentRepository.findMedicamentsAReapprovisionner();
 
-        List<Medicament> enRupture = medicamentRepository.findMedicamentsAReapprovisionner();
-
-        if (enRupture.isEmpty()) {
-            log.info("Rien à commander.");
+        if (rupture.isEmpty()) {
+            log.info("Aucun médicament en rupture (Stock > Seuil).");
             return;
         }
 
-        // On crée un message récapitulatif
-        StringBuilder sb = new StringBuilder("Commande de réapprovisionnement :\n");
-        for (Medicament m : enRupture) {
-            sb.append("- ").append(m.getNom()).append(" (Stock: ").append(m.getUnitesEnStock()).append(")\n");
+        Map<Fournisseur, List<Medicament>> parFournisseur = new HashMap<>();
+        for (Medicament m : rupture) {
+            if (m.getCategorie() != null && m.getCategorie().getFournisseurs() != null) {
+                for (Fournisseur f : m.getCategorie().getFournisseurs()) {
+                    parFournisseur.computeIfAbsent(f, k -> new ArrayList<>()).add(m);
+                }
+            }
         }
 
-        // Envoi groupé à une adresse fixe pour éviter l'erreur Categorie/Fournisseur
-        envoyerEmailSimpli("appro@pharmacie.com", sb.toString());
+        parFournisseur.forEach(this::envoyerEmail);
     }
 
-    private void envoyerEmailSimpli(String destinataire, String corps) {
-        if (sendGridApiKey.equals("CLE_DE_TEST")) {
-            log.warn("### SIMULATION MAIL ###\nPour: {}\nContenu: \n{}", destinataire, corps);
-            return;
-        }
-
-        Email from = new Email(fromEmail);
-        Email to = new Email(destinataire);
-        Content content = new Content("text/plain", corps);
-        Mail mail = new Mail(from, "Alerte Stock Pharmacie", to, content);
-
-        SendGrid sg = new SendGrid(sendGridApiKey);
-        Request request = new Request();
+    private void envoyerEmail(Fournisseur f, List<Medicament> meds) {
         try {
-            request.setMethod(Method.POST);
-            request.setEndpoint("mail/send");
-            request.setBody(mail.build());
-            sg.api(request);
-            log.info("Email envoyé avec succès !");
-        } catch (IOException e) {
-            log.error("Erreur SendGrid : {}", e.getMessage());
+            StringBuilder sb = new StringBuilder("Besoin de réapprovisionnement pour :\\n");
+            for (Medicament m : meds) {
+                int qte = m.getNiveauDeReappro() - m.getUnitesEnStock() + 50;
+                sb.append("- ").append(m.getNom()).append(" (Qté: ").append(qte).append(")\\n");
+            }
+
+            // MODIFICATION ICI : On envoie à senderEmail (toi) car Postmark bloque les mails externes en test
+            String json = String.format(
+                "{\"From\":\"%s\",\"To\":\"%s\",\"Subject\":\"COMMANDE : %s\",\"TextBody\":\"%s\"}",
+                senderEmail, senderEmail, f.getNom(), sb.toString()
+            );
+
+            HttpHeaders headers = new HttpHeaders();
+            headers.setContentType(MediaType.APPLICATION_JSON);
+            headers.set("X-Postmark-Server-Token", postmarkApiToken);
+
+            HttpEntity<String> entity = new HttpEntity<>(json, headers);
+            String response = new RestTemplate().postForObject("https://api.postmarkapp.com/email", entity, String.class);
+            
+            log.info("Email simulé envoyé pour {} (Reçu sur votre boîte mail)", f.getNom());
+            log.debug("Réponse Postmark : {}", response);
+            
+        } catch (Exception e) {
+            log.error("Échec de l'envoi pour {}: {}", f.getNom(), e.getMessage());
         }
     }
 }
