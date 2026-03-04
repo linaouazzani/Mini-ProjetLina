@@ -37,7 +37,10 @@ public class ApprovisionnementService {
         log.info("Vérification des stocks...");
         List<Medicament> rupture = medicamentRepository.findMedicamentsAReapprovisionner();
 
-        if (rupture.isEmpty()) return;
+        if (rupture.isEmpty()) {
+            log.info("Aucun médicament à réapprovisionner.");
+            return;
+        }
 
         Map<Fournisseur, List<Medicament>> parFournisseur = new HashMap<>();
         for (Medicament m : rupture) {
@@ -53,25 +56,34 @@ public class ApprovisionnementService {
 
     private void envoyerEmail(Fournisseur f, List<Medicament> meds) {
         try {
-            StringBuilder sb = new StringBuilder("Besoin de réapprovisionnement pour :\\n");
+            StringBuilder sb = new StringBuilder("Besoin de réapprovisionnement pour :\n");
             for (Medicament m : meds) {
                 int qte = m.getNiveauDeReappro() - m.getUnitesEnStock() + 50;
-                sb.append("- ").append(m.getNom()).append(" (Qté: ").append(qte).append(")\\n");
+                sb.append("- ").append(m.getNom())
+                  .append(" (Stock: ").append(m.getUnitesEnStock())
+                  .append(" / Commande: ").append(qte).append(")\n");
             }
 
             String json = String.format(
-                "{\"From\":\"%s\",\"To\":\"%s\",\"Subject\":\"Commande Pharmacie\",\"TextBody\":\"%s\"}",
-                senderEmail, f.getEmail(), sb.toString()
+                "{\"From\":\"%s\",\"To\":\"%s\",\"Subject\":\"Commande : %s\",\"TextBody\":\"%s\"}",
+                senderEmail,
+                f.getEmail(),
+                f.getNom(),
+                sb.toString().replace("\n", "\\n")
             );
 
             HttpHeaders headers = new HttpHeaders();
             headers.setContentType(MediaType.APPLICATION_JSON);
             headers.set("X-Postmark-Api-Token", postmarkApiToken);
 
-            new RestTemplate().postForEntity("https://api.postmarkapp.com/email", new HttpEntity<>(json, headers), String.class);
+            new RestTemplate().postForEntity(
+                "https://api.postmarkapp.com/email",
+                new HttpEntity<>(json, headers),
+                String.class
+            );
             log.info("Email envoyé à {}", f.getNom());
         } catch (Exception e) {
-            log.error("Échec envoi à {}: {}", f.getNom(), e.getMessage());
+            log.error("Echec envoi à {} : {}", f.getNom(), e.getMessage());
         }
     }
 }
