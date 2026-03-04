@@ -75,8 +75,8 @@ public class Medicament {
 	@ToString.Exclude
 	private boolean indisponible = false;
 
-	@Column(length = 500000)
-	private String imageURL;
+	@Column(columnDefinition = "TEXT")
+private String imageURL;
 
 	@ToString.Exclude
 @JsonIgnoreProperties("medicaments")
