@@ -88,6 +88,6 @@ private Categorie categorie;
 	@JsonIgnore // On n'inclut pas les lignes quand on convertit le médicament en JSON
 	@OneToMany(mappedBy = "medicament", cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH})
 	private List<Ligne> lignes = new LinkedList<>();
-
+//pour test 
 
 }
