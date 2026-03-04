@@ -13,6 +13,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.validation.constraints.PositiveOrZero;
@@ -78,11 +79,11 @@ public class Medicament {
 	private String imageURL;
 
 	@ToString.Exclude
-	@JsonIgnoreProperties("medicaments") // pour éviter la boucle infinie si on convertit le médicament en JSON
-	@NonNull // Lombok, génère une vérification dans le constructeur par défaut
-	@ManyToOne(optional = false) // La clé étrangère ne peut pas être nulle dans la table Medicament
-	private Categorie categorie ;
-
+@JsonIgnoreProperties("medicaments")
+@NonNull
+@ManyToOne(optional = true)                        
+@JoinColumn(name = "categorie_code", nullable = true) 
+private Categorie categorie;
 	@ToString.Exclude
 	@JsonIgnore // On n'inclut pas les lignes quand on convertit le médicament en JSON
 	@OneToMany(mappedBy = "medicament", cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH})
