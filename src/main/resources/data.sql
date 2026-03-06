@@ -1,6 +1,6 @@
 -- Données de base pour le projet Pharmacie
 -- Dispensaire (Etablissements de santé qui passent commande de médicaments)
--- Le fichier est chargé au démarrage de l''application
+-- Le fichier est chargé au démarrage de l'application
 
 -- Insertion des catégories de médicaments
 INSERT INTO CATEGORIE (CODE, LIBELLE, DESCRIPTION) VALUES
@@ -18,7 +18,7 @@ ALTER TABLE Categorie ALTER COLUMN code RESTART WITH 11;
 
 -- Catégorie 1: Antalgiques et Antipyrétiques
 INSERT INTO MEDICAMENT (NOM, CATEGORIE_CODE, QUANTITE_PAR_UNITE, PRIX_UNITAIRE, UNITES_EN_STOCK, UNITES_COMMANDEES, NIVEAU_DE_REAPPRO, INDISPONIBLE, imageURL) VALUES
-('Paracétamol 500mg', 1, 'Boîte de 16 comprimés', 2.50, 10, 0, 50, false, 'https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=400'),
+('Paracétamol 500mg', 1, 'Boîte de 16 comprimés', 2.50, 5, 0, 50, false, 'https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=400'), -- STOCK BAS (5 < 50) -> MAIL
 ('Paracétamol 1000mg', 1, 'Boîte de 8 comprimés', 3.20, 350, 0, 40, false, 'https://images.unsplash.com/photo-1471864190281-a93a3070b6de?w=400'),
 ('Ibuprofène 200mg', 1, 'Boîte de 20 comprimés', 3.80, 400, 0, 45, false, 'https://images.unsplash.com/photo-1550572017-edd951aa8f72?w=400'),
 ('Ibuprofène 400mg', 1, 'Boîte de 12 comprimés', 4.50, 320, 0, 35, false, 'https://images.unsplash.com/photo-1587854692152-cbe660dbde88?w=400'),
@@ -31,7 +31,7 @@ INSERT INTO MEDICAMENT (NOM, CATEGORIE_CODE, QUANTITE_PAR_UNITE, PRIX_UNITAIRE, 
 
 -- Catégorie 2: Anti-inflammatoires
 INSERT INTO MEDICAMENT (NOM, CATEGORIE_CODE, QUANTITE_PAR_UNITE, PRIX_UNITAIRE, UNITES_EN_STOCK, UNITES_COMMANDEES, NIVEAU_DE_REAPPRO, INDISPONIBLE, imageURL) VALUES
-('Diclofénac 50mg', 2, 'Boîte de 20 comprimés', 5.60, 300, 0, 35, false, 'https://images.unsplash.com/photo-1628771065518-0d82f1938462?w=400'),
+('Diclofénac 50mg', 2, 'Boîte de 20 comprimés', 5.60, 10, 0, 35, false, 'https://images.unsplash.com/photo-1628771065518-0d82f1938462?w=400'), -- STOCK BAS (10 < 35) -> MAIL
 ('Kétoprofène 100mg', 2, 'Boîte de 12 gélules', 6.80, 250, 0, 30, false, 'https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=400'),
 ('Naproxène 550mg', 2, 'Boîte de 16 comprimés', 7.20, 200, 0, 25, false, 'https://images.unsplash.com/photo-1471864190281-a93a3070b6de?w=400'),
 ('Célécoxib 200mg', 2, 'Boîte de 30 gélules', 15.90, 180, 0, 20, false, 'https://images.unsplash.com/photo-1550572017-edd951aa8f72?w=400'),
@@ -44,7 +44,7 @@ INSERT INTO MEDICAMENT (NOM, CATEGORIE_CODE, QUANTITE_PAR_UNITE, PRIX_UNITAIRE, 
 
 -- Catégorie 3: Antibiotiques
 INSERT INTO MEDICAMENT (NOM, CATEGORIE_CODE, QUANTITE_PAR_UNITE, PRIX_UNITAIRE, UNITES_EN_STOCK, UNITES_COMMANDEES, NIVEAU_DE_REAPPRO, INDISPONIBLE, imageURL) VALUES
-('Amoxicilline 500mg', 3, 'Boîte de 12 gélules', 5.90, 400, 0, 40, false, 'https://images.unsplash.com/photo-1587854692152-cbe660dbde88?w=400'),
+('Amoxicilline 500mg', 3, 'Boîte de 12 gélules', 5.90, 4, 0, 40, false, 'https://images.unsplash.com/photo-1587854692152-cbe660dbde88?w=400'), -- STOCK BAS (4 < 40) -> MAIL
 ('Amoxicilline + Acide Clavulanique 1g', 3, 'Boîte de 8 comprimés', 8.50, 350, 0, 35, false, 'https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=400'),
 ('Azithromycine 250mg', 3, 'Boîte de 6 comprimés', 9.80, 280, 0, 30, false, 'https://images.unsplash.com/photo-1628771065518-0d82f1938462?w=400'),
 ('Ciprofloxacine 500mg', 3, 'Boîte de 10 comprimés', 12.30, 220, 0, 25, false, 'https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=400'),
@@ -66,7 +66,7 @@ INSERT INTO MEDICAMENT (NOM, CATEGORIE_CODE, QUANTITE_PAR_UNITE, PRIX_UNITAIRE, 
 ('Candésartan 8mg', 4, 'Boîte de 30 comprimés', 10.50, 280, 0, 28, false, 'https://images.unsplash.com/photo-1471864190281-a93a3070b6de?w=400'),
 ('Bisoprolol 5mg', 4, 'Boîte de 30 comprimés', 5.90, 380, 0, 38, false, 'https://images.unsplash.com/photo-1550572017-edd951aa8f72?w=400'),
 ('Métoprolol 50mg', 4, 'Boîte de 60 comprimés', 8.40, 340, 0, 34, false, 'https://images.unsplash.com/photo-1587854692152-cbe660dbde88?w=400'),
-('Hydrochlorothiazide 25mg', 4, 'Boîte de 30 comprimés', 4.20, 420, 0, 42, false, 'https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=400');
+('Hydrochlorothiazide 25mg', 4, 'Boîte de 30 comprimés', 4.20, 10, 0, 42, false, 'https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=400'); -- STOCK BAS (10 < 42) -> MAIL
 
 -- Catégorie 5: Antidiabétiques
 INSERT INTO MEDICAMENT (NOM, CATEGORIE_CODE, QUANTITE_PAR_UNITE, PRIX_UNITAIRE, UNITES_EN_STOCK, UNITES_COMMANDEES, NIVEAU_DE_REAPPRO, INDISPONIBLE, imageURL) VALUES
@@ -79,7 +79,7 @@ INSERT INTO MEDICAMENT (NOM, CATEGORIE_CODE, QUANTITE_PAR_UNITE, PRIX_UNITAIRE, 
 ('Empagliflozine 10mg', 5, 'Boîte de 30 comprimés', 48.90, 120, 0, 12, false, 'https://images.unsplash.com/photo-1628771065518-0d82f1938462?w=400'),
 ('Insuline Rapide', 5, 'Flacon de 10ml', 25.00, 200, 0, 20, false, 'https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=400'),
 ('Insuline Lente', 5, 'Flacon de 10ml', 28.50, 180, 0, 18, false, 'https://images.unsplash.com/photo-1471864190281-a93a3070b6de?w=400'),
-('Pioglitazone 30mg', 5, 'Boîte de 28 comprimés', 38.60, 100, 0, 10, false, 'https://images.unsplash.com/photo-1550572017-edd951aa8f72?w=400');
+('Pioglitazone 30mg', 5, 'Boîte de 28 comprimés', 38.60, 2, 0, 10, false, 'https://images.unsplash.com/photo-1550572017-edd951aa8f72?w=400'); -- STOCK BAS (2 < 10) -> MAIL
 
 -- Catégorie 6: Antihistaminiques
 INSERT INTO MEDICAMENT (NOM, CATEGORIE_CODE, QUANTITE_PAR_UNITE, PRIX_UNITAIRE, UNITES_EN_STOCK, UNITES_COMMANDEES, NIVEAU_DE_REAPPRO, INDISPONIBLE, imageURL) VALUES
@@ -91,7 +91,7 @@ INSERT INTO MEDICAMENT (NOM, CATEGORIE_CODE, QUANTITE_PAR_UNITE, PRIX_UNITAIRE, 
 ('Bilastine 20mg', 6, 'Boîte de 30 comprimés', 9.20, 220, 0, 22, false, 'https://images.unsplash.com/photo-1550572017-edd951aa8f72?w=400'),
 ('Hydroxyzine 25mg', 6, 'Boîte de 30 comprimés', 4.80, 180, 0, 18, false, 'https://images.unsplash.com/photo-1587854692152-cbe660dbde88?w=400'),
 ('Diphénhydramine 25mg', 6, 'Boîte de 24 comprimés', 5.20, 200, 0, 20, false, 'https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=400'),
-('Prométhazine 25mg', 6, 'Boîte de 20 comprimés', 6.80, 150, 0, 15, false, 'https://images.unsplash.com/photo-1628771065518-0d82f1938462?w=400'),
+('Prométhazine 25mg', 6, 'Boîte de 20 comprimés', 6.80, 2, 0, 15, false, 'https://images.unsplash.com/photo-1628771065518-0d82f1938462?w=400'), -- STOCK BAS (2 < 15) -> MAIL
 ('Rupatadine 10mg', 6, 'Boîte de 30 comprimés', 10.50, 140, 0, 14, false, 'https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=400');
 
 -- Catégorie 7: Vitamines et Compléments
@@ -105,7 +105,7 @@ INSERT INTO MEDICAMENT (NOM, CATEGORIE_CODE, QUANTITE_PAR_UNITE, PRIX_UNITAIRE, 
 ('Multivitamines', 7, 'Boîte de 90 comprimés', 15.80, 280, 0, 28, false, 'https://images.unsplash.com/photo-1471864190281-a93a3070b6de?w=400'),
 ('Oméga 3', 7, 'Boîte de 60 capsules', 18.90, 250, 0, 25, false, 'https://images.unsplash.com/photo-1550572017-edd951aa8f72?w=400'),
 ('Zinc 15mg', 7, 'Boîte de 30 comprimés', 6.50, 220, 0, 22, false, 'https://images.unsplash.com/photo-1587854692152-cbe660dbde88?w=400'),
-('Sélénium 50mcg', 7, 'Boîte de 30 gélules', 8.90, 180, 0, 18, false, 'https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=400');
+('Sélénium 50mcg', 7, 'Boîte de 30 gélules', 8.90, 5, 0, 18, false, 'https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=400'); -- STOCK BAS (5 < 18) -> MAIL
 
 -- Catégorie 8: Médicaments Cardiovasculaires
 INSERT INTO MEDICAMENT (NOM, CATEGORIE_CODE, QUANTITE_PAR_UNITE, PRIX_UNITAIRE, UNITES_EN_STOCK, UNITES_COMMANDEES, NIVEAU_DE_REAPPRO, INDISPONIBLE, imageURL) VALUES
@@ -117,12 +117,12 @@ INSERT INTO MEDICAMENT (NOM, CATEGORIE_CODE, QUANTITE_PAR_UNITE, PRIX_UNITAIRE, 
 ('Digoxine 0.25mg', 8, 'Boîte de 30 comprimés', 5.40, 200, 0, 20, false, 'https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=400'),
 ('Furosémide 40mg', 8, 'Boîte de 30 comprimés', 4.20, 380, 0, 38, false, 'https://images.unsplash.com/photo-1628771065518-0d82f1938462?w=400'),
 ('Spironolactone 25mg', 8, 'Boîte de 30 comprimés', 6.80, 250, 0, 25, false, 'https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=400'),
-('Ivabradine 5mg', 8, 'Boîte de 56 comprimés', 32.50, 150, 0, 15, false, 'https://images.unsplash.com/photo-1471864190281-a93a3070b6de?w=400'),
+('Ivabradine 5mg', 8, 'Boîte de 56 comprimés', 32.50, 3, 0, 15, false, 'https://images.unsplash.com/photo-1471864190281-a93a3070b6de?w=400'), -- STOCK BAS (3 < 15) -> MAIL
 ('Isosorbide Dinitrate 20mg', 8, 'Boîte de 60 comprimés', 8.90, 220, 0, 22, false, 'https://images.unsplash.com/photo-1550572017-edd951aa8f72?w=400');
 
 -- Catégorie 9: Médicaments Gastro-intestinaux
 INSERT INTO MEDICAMENT (NOM, CATEGORIE_CODE, QUANTITE_PAR_UNITE, PRIX_UNITAIRE, UNITES_EN_STOCK, UNITES_COMMANDEES, NIVEAU_DE_REAPPRO, INDISPONIBLE, imageURL) VALUES
-('Oméprazole 20mg', 9, 'Boîte de 14 gélules', 3.80, 450, 0, 45, false, 'https://images.unsplash.com/photo-1587854692152-cbe660dbde88?w=400'),
+('Oméprazole 20mg', 9, 'Boîte de 14 gélules', 3.80, 2, 0, 45, false, 'https://images.unsplash.com/photo-1587854692152-cbe660dbde88?w=400'), -- STOCK BAS (2 < 45) -> MAIL
 ('Pantoprazole 40mg', 9, 'Boîte de 28 comprimés', 6.50, 400, 0, 40, false, 'https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=400'),
 ('Ésoméprazole 20mg', 9, 'Boîte de 14 comprimés', 5.90, 380, 0, 38, false, 'https://images.unsplash.com/photo-1628771065518-0d82f1938462?w=400'),
 ('Ranitidine 150mg', 9, 'Boîte de 24 comprimés', 4.80, 320, 0, 32, false, 'https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=400'),
@@ -135,7 +135,7 @@ INSERT INTO MEDICAMENT (NOM, CATEGORIE_CODE, QUANTITE_PAR_UNITE, PRIX_UNITAIRE, 
 
 -- Catégorie 10: Médicaments Respiratoires
 INSERT INTO MEDICAMENT (NOM, CATEGORIE_CODE, QUANTITE_PAR_UNITE, PRIX_UNITAIRE, UNITES_EN_STOCK, UNITES_COMMANDEES, NIVEAU_DE_REAPPRO, INDISPONIBLE, imageURL) VALUES
-('Salbutamol Spray 100mcg', 10, 'Spray de 200 doses', 6.50, 300, 0, 30, false, 'https://images.unsplash.com/photo-1471864190281-a93a3070b6de?w=400'),
+('Salbutamol Spray 100mcg', 10, 'Spray de 200 doses', 6.50, 5, 0, 30, false, 'https://images.unsplash.com/photo-1471864190281-a93a3070b6de?w=400'), -- STOCK BAS (5 < 30) -> MAIL
 ('Budésonide Spray 200mcg', 10, 'Spray de 200 doses', 12.80, 250, 0, 25, false, 'https://images.unsplash.com/photo-1550572017-edd951aa8f72?w=400'),
 ('Fluticasone Spray 125mcg', 10, 'Spray de 120 doses', 15.90, 220, 0, 22, false, 'https://images.unsplash.com/photo-1587854692152-cbe660dbde88?w=400'),
 ('Tiotropium 18mcg', 10, 'Boîte de 30 gélules', 42.50, 180, 0, 18, false, 'https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=400'),
